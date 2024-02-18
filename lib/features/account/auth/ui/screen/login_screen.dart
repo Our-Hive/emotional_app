@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -60,7 +61,7 @@ class LoginScreen extends StatelessWidget {
             thickness: 2,
           ),
           TextButton(
-              onPressed: () => print('register'),
+              onPressed: () => context.go('/signUp'),
               child: const Column(
                 children: <Text>[
                   Text('¿No puedes iniciar sesión?'),
