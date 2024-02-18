@@ -13,8 +13,15 @@ class AppTheme {
         surface: Color(0xFF142929),
         onSurface: Color(0xFFFFFFFF),
       ),
+      inputDecorationTheme: const InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+      ),
       filledButtonTheme: FilledButtonThemeData(
         style: ButtonStyle(
+          minimumSize:
+              MaterialStateProperty.all(const Size(double.infinity, 50)),
           shape: MaterialStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
