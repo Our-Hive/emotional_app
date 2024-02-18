@@ -1,5 +1,5 @@
+import 'package:diary_emotional_frontend/config/app_router.dart';
 import 'package:diary_emotional_frontend/config/app_theme.dart';
-import 'package:diary_emotional_frontend/features/account/auth/ui/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,10 +11,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       darkTheme: AppTheme.dark(),
-      home: const LoginScreen(),
+      routerConfig: appRouter,
     );
   }
 }
