@@ -1,5 +1,6 @@
-import 'package:diary_emotional_frontend/features/account/auth/ui/screen/login_screen.dart';
-import 'package:diary_emotional_frontend/features/account/auth/ui/screen/sign_up_screen.dart';
+import 'package:diary_emotional_frontend/features/account/auth/ui/screens/login_screen.dart';
+import 'package:diary_emotional_frontend/features/account/auth/ui/screens/sign_up_multi_step/step_account_screen.dart';
+import 'package:diary_emotional_frontend/features/account/auth/ui/screens/sign_up_multi_step/step_contact_screen.dart';
 import 'package:go_router/go_router.dart';
 
 final appRouter = GoRouter(initialLocation: '/login', routes: [
@@ -9,6 +10,10 @@ final appRouter = GoRouter(initialLocation: '/login', routes: [
   ),
   GoRoute(
     path: '/signUp',
-    builder: (context, state) => const SignUpScreen(),
+    builder: (context, state) => const SignUpStepAccountScreen(),
+  ),
+  GoRoute(
+    path: '/signUp/contact',
+    builder: (context, state) => const SignUpStepContactScreen(),
   ),
 ]);
