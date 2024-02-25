@@ -39,18 +39,24 @@ class SignUpStepContactScreen extends StatelessWidget {
                           prefixIcon: Icon(Icons.phone), labelText: 'Teléfono'),
                     ),
                     const SizedBox(height: 20),
-                    FilledButton.tonalIcon(
-                      onPressed: () async {
-                        DateTime? selectedDate = await showDatePicker(
-                          context: context,
-                          firstDate: DateTime(1900),
-                          initialDate: DateTime.now(),
-                          lastDate: DateTime.now(),
-                        );
-                        if (selectedDate != null) print(selectedDate);
-                      },
-                      icon: const Icon(Icons.calendar_today),
-                      label: const Text('Selecciona tu fecha de nacimiento'),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: FilledButton.tonalIcon(
+                        onPressed: () async {
+                          DateTime? selectedDate = await showDatePicker(
+                            context: context,
+                            firstDate: DateTime(1900),
+                            initialDate: DateTime.now(),
+                            lastDate: DateTime.now(),
+                          );
+                          if (selectedDate != null) print(selectedDate);
+                        },
+                        icon: const Icon(Icons.calendar_today),
+                        label: const Text('Selecciona tu fecha de nacimiento'),
+                      ),
                     )
                   ],
                 ),
