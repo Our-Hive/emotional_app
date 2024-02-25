@@ -34,11 +34,12 @@ class SignUpStepAccountScreen extends StatelessWidget {
                             labelText: 'Correo Electrónico'),
                       ),
                       const SizedBox(height: 20),
-                      const PasswordFormField(),
+                      /*  TODO: implement onChangedCallBack
+                     const PasswordFormField(),
                       const SizedBox(height: 20),
                       const PasswordFormField(
                         label: 'Confirmar Contraseña',
-                      ),
+                      ), */
                     ],
                   ),
                 ),
