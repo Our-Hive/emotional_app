@@ -1,9 +1,12 @@
+import 'package:diary_emotional_frontend/config/app_environment.dart';
 import 'package:diary_emotional_frontend/config/app_router.dart';
 import 'package:diary_emotional_frontend/config/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  await AppEnvironment.init();
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

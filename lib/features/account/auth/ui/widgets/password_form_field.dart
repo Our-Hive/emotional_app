@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class PasswordFormField extends StatelessWidget {
   final String label;
-  const PasswordFormField({super.key, this.label = 'Contraseña'});
+  final void Function(String) onChangedCallBack;
+  const PasswordFormField(
+      {super.key, this.label = 'Contraseña', required this.onChangedCallBack});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,7 @@ class PasswordFormField extends StatelessWidget {
           icon: const Icon(Icons.visibility_off),
         ),
       ),
+      onChanged: onChangedCallBack,
     );
   }
 }
