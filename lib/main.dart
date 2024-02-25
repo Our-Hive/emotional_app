@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      title: 'OurHive - Emotional Diary',
       darkTheme: AppTheme.dark(),
       routerConfig: appRouter,
     );
