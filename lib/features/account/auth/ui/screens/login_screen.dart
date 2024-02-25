@@ -53,35 +53,37 @@ class LoginScreen extends ConsumerWidget {
         },
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(40),
-                child: ImageFiltered(
-                  imageFilter: const ColorFilter.mode(
-                    Colors.yellow,
-                    BlendMode.srcATop,
-                  ),
-                  child: Image.asset(
-                    'assets/app_image.png',
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(40),
+                  child: ImageFiltered(
+                    imageFilter: const ColorFilter.mode(
+                      Colors.yellow,
+                      BlendMode.srcATop,
+                    ),
+                    child: Image.asset(
+                      'assets/app_image.png',
+                    ),
                   ),
                 ),
-              ),
-              const _LoginForm(),
-              const Divider(
-                height: 50,
-                thickness: 2,
-              ),
-              TextButton(
-                  onPressed: () => context.go('/signUp'),
-                  child: const Column(
-                    children: <Text>[
-                      Text('¿No puedes iniciar sesión?'),
-                      Text('Crear Cuenta'),
-                    ],
-                  )),
-            ],
+                const _LoginForm(),
+                const Divider(
+                  height: 50,
+                  thickness: 2,
+                ),
+                TextButton(
+                    onPressed: () => context.go('/signUp'),
+                    child: const Column(
+                      children: <Text>[
+                        Text('¿No puedes iniciar sesión?'),
+                        Text('Crear Cuenta'),
+                      ],
+                    )),
+              ],
+            ),
           ),
         ),
       ),

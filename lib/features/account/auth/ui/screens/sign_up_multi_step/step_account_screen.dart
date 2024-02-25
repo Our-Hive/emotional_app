@@ -11,55 +11,59 @@ class SignUpStepAccountScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Registro'),
         ),
-        body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Form(
-                  child: Column(
-                    children: <Widget>[
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.alternate_email_sharp),
-                            labelText: 'Nickname'),
+        body: Center(
+          child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Form(
+                      child: Column(
+                        children: <Widget>[
+                          TextFormField(
+                            keyboardType: TextInputType.text,
+                            decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.alternate_email_sharp),
+                                labelText: 'Nickname'),
+                          ),
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.mail),
+                                labelText: 'Correo Electrónico'),
+                          ),
+                          const SizedBox(height: 20),
+                          PasswordFormField(
+                            onChangedCallBack: (string) => print('Hola'),
+                          ),
+                          const SizedBox(height: 20),
+                          PasswordFormField(
+                            label: 'Confirmar Contraseña',
+                            onChangedCallBack: (string) => print('Hola'),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.mail),
-                            labelText: 'Correo Electrónico'),
-                      ),
-                      const SizedBox(height: 20),
-                      /*  TODO: implement onChangedCallBack
-                     const PasswordFormField(),
-                      const SizedBox(height: 20),
-                      const PasswordFormField(
-                        label: 'Confirmar Contraseña',
-                      ), */
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 20),
+                    FilledButton(
+                        onPressed: () => context.push('/signUp/contact'),
+                        child: const Text('Siguiente Paso')),
+                    const Divider(
+                      height: 50,
+                      thickness: 2,
+                    ),
+                    TextButton(
+                        onPressed: () => context.go('/login'),
+                        child: const Column(
+                          children: <Text>[
+                            Text('¿Ya tienes cuenta?'),
+                            Text('Inicia sesión'),
+                          ],
+                        )),
+                  ],
                 ),
-                const SizedBox(height: 20),
-                FilledButton(
-                    onPressed: () => context.push('/signUp/contact'),
-                    child: const Text('Siguiente Paso')),
-                const Divider(
-                  height: 50,
-                  thickness: 2,
-                ),
-                TextButton(
-                    onPressed: () => context.go('/login'),
-                    child: const Column(
-                      children: <Text>[
-                        Text('¿Ya tienes cuenta?'),
-                        Text('Inicia sesión'),
-                      ],
-                    )),
-              ],
-            )));
+              )),
+        ));
   }
 }
