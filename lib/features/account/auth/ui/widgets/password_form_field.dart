@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
 
-class PasswordFormField extends StatelessWidget {
+class PasswordFormField extends StatefulWidget {
   final String label;
   final void Function(String) onChangedCallBack;
   const PasswordFormField(
       {super.key, this.label = 'Contraseña', required this.onChangedCallBack});
 
   @override
+  State<PasswordFormField> createState() => _PasswordFormFieldState();
+}
+
+class _PasswordFormFieldState extends State<PasswordFormField> {
+  bool _showPassword = false;
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.visiblePassword,
-      obscureText: true,
+      obscureText: _showPassword ? false : true,
       autocorrect: false,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.lock),
-        labelText: label,
+        labelText: widget.label,
         suffixIcon: IconButton(
-          onPressed: () => print('show password'),
-          icon: const Icon(Icons.visibility_off),
+          onPressed: () => setState(() => _showPassword = !_showPassword),
+          icon: Icon(_showPassword
+              ? Icons.visibility_rounded
+              : Icons.visibility_off_rounded),
         ),
       ),
-      onChanged: onChangedCallBack,
+      onChanged: widget.onChangedCallBack,
     );
   }
 }
