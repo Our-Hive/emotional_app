@@ -43,7 +43,7 @@ class LoginScreen extends ConsumerWidget {
     });
     ref.listen(authNProvider, (previous, next) {
       if (next.isAuth) {
-        context.go('/home');
+        context.go('/profile');
       }
     });
     return Scaffold(
@@ -51,38 +51,40 @@ class LoginScreen extends ConsumerWidget {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(40),
-                  child: ImageFiltered(
-                    imageFilter: const ColorFilter.mode(
-                      Colors.yellow,
-                      BlendMode.srcATop,
-                    ),
-                    child: Image.asset(
-                      'assets/app_image.png',
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(40),
+                    child: ImageFiltered(
+                      imageFilter: const ColorFilter.mode(
+                        Colors.yellow,
+                        BlendMode.srcATop,
+                      ),
+                      child: Image.asset(
+                        'assets/app_image.png',
+                      ),
                     ),
                   ),
-                ),
-                const _LoginForm(),
-                const Divider(
-                  height: 50,
-                  thickness: 2,
-                ),
-                TextButton(
-                    onPressed: () => context.go('/signUp'),
-                    child: const Column(
-                      children: <Text>[
-                        Text('¿No puedes iniciar sesión?'),
-                        Text('Crear Cuenta'),
-                      ],
-                    )),
-              ],
+                  const _LoginForm(),
+                  const Divider(
+                    height: 50,
+                    thickness: 2,
+                  ),
+                  TextButton(
+                      onPressed: () => context.go('/signUp'),
+                      child: const Column(
+                        children: <Text>[
+                          Text('¿No puedes iniciar sesión?'),
+                          Text('Crear Cuenta'),
+                        ],
+                      )),
+                ],
+              ),
             ),
           ),
         ),
