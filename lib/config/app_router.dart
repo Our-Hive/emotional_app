@@ -9,7 +9,7 @@ import 'package:diary_emotional_frontend/features/info/ui/screens/info_view.dart
 import 'package:diary_emotional_frontend/features/my_space/ui/screens/my_space_view.dart';
 import 'package:go_router/go_router.dart';
 
-final appRouter = GoRouter(initialLocation: '/profile', routes: [
+final appRouter = GoRouter(initialLocation: '/login', routes: [
   GoRoute(
     path: '/login',
     builder: (context, state) => const LoginScreen(),
@@ -36,6 +36,16 @@ final appRouter = GoRouter(initialLocation: '/profile', routes: [
         GoRoute(
           path: '/home',
           builder: (context, state) => const HomeView(),
+          routes: [
+            GoRoute(
+              path: 'diary',
+              builder: (context, state) => const ProfileView(),
+            ),
+            GoRoute(
+              path: 'transcendentalEmotions',
+              builder: (context, state) => const InfoView(),
+            ),
+          ],
         ),
         GoRoute(
           path: '/info',
