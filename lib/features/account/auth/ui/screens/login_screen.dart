@@ -22,7 +22,7 @@ class LoginScreen extends ConsumerWidget {
       }
     });
     ref.listen(authNProvider, (previous, next) {
-      if (next.isLoading) {
+      if (next.isLoading && next.isAuth == false) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
           ..showSnackBar(
@@ -43,7 +43,8 @@ class LoginScreen extends ConsumerWidget {
     });
     ref.listen(authNProvider, (previous, next) {
       if (next.isAuth) {
-        context.go('/profile');
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        context.go('/home');
       }
     });
     return Scaffold(
