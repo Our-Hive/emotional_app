@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:diary_emotional_frontend/config/router/app_paths.dart';
 import 'package:diary_emotional_frontend/features/account/auth/ui/provider/auth_provider.dart';
 import 'package:diary_emotional_frontend/features/account/auth/ui/provider/login_form_provider.dart';
@@ -45,7 +46,10 @@ class LoginScreen extends ConsumerWidget {
     ref.listen(authNProvider, (previous, next) {
       if (next.isAuth) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        context.go(AppPaths.home);
+        Future.delayed(
+          const Duration(milliseconds: 100),
+          () => context.go(AppPaths.home),
+        );
       }
     });
     return Scaffold(
@@ -60,15 +64,19 @@ class LoginScreen extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(40),
-                    child: ImageFiltered(
-                      imageFilter: const ColorFilter.mode(
-                        Colors.yellow,
-                        BlendMode.srcATop,
-                      ),
-                      child: Image.asset(
-                        'assets/app_image.png',
+                  FadeOutUp(
+                    animate: ref.watch(loginFormProvider).isSuccess,
+                    duration: const Duration(seconds: 1),
+                    child: Container(
+                      padding: const EdgeInsets.all(40),
+                      child: ImageFiltered(
+                        imageFilter: const ColorFilter.mode(
+                          Colors.yellow,
+                          BlendMode.srcATop,
+                        ),
+                        child: Image.asset(
+                          'assets/app_image.png',
+                        ),
                       ),
                     ),
                   ),
