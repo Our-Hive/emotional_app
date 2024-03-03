@@ -1,3 +1,4 @@
+import 'package:diary_emotional_frontend/config/router/app_paths.dart';
 import 'package:diary_emotional_frontend/features/account/auth/ui/widgets/password_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -23,15 +24,17 @@ class SignUpStepAccountScreen extends StatelessWidget {
                           TextFormField(
                             keyboardType: TextInputType.text,
                             decoration: const InputDecoration(
-                                prefixIcon: Icon(Icons.alternate_email_sharp),
-                                labelText: 'Nickname'),
+                              prefixIcon: Icon(Icons.alternate_email_sharp),
+                              labelText: 'Nickname',
+                            ),
                           ),
                           const SizedBox(height: 20),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             decoration: const InputDecoration(
-                                prefixIcon: Icon(Icons.mail),
-                                labelText: 'Correo Electrónico'),
+                              prefixIcon: Icon(Icons.mail),
+                              labelText: 'Correo Electrónico',
+                            ),
                           ),
                           const SizedBox(height: 20),
                           PasswordFormField(
@@ -47,14 +50,15 @@ class SignUpStepAccountScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     FilledButton(
-                        onPressed: () => context.push('/signUp/contact'),
-                        child: const Text('Siguiente Paso')),
+                      onPressed: () => context.push(AppPaths.signUpContact),
+                      child: const Text('Siguiente Paso'),
+                    ),
                     const Divider(
                       height: 50,
                       thickness: 2,
                     ),
                     TextButton(
-                        onPressed: () => context.go('/login'),
+                        onPressed: () => context.go(AppPaths.logIn),
                         child: const Column(
                           children: <Text>[
                             Text('¿Ya tienes cuenta?'),
