@@ -1,3 +1,4 @@
+import 'package:diary_emotional_frontend/config/router/app_paths.dart';
 import 'package:diary_emotional_frontend/features/account/auth/ui/provider/auth_provider.dart';
 import 'package:diary_emotional_frontend/features/account/auth/ui/provider/login_form_provider.dart';
 import 'package:diary_emotional_frontend/features/account/auth/ui/widgets/password_form_field.dart';
@@ -44,7 +45,7 @@ class LoginScreen extends ConsumerWidget {
     ref.listen(authNProvider, (previous, next) {
       if (next.isAuth) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        context.go('/home');
+        context.go(AppPaths.home);
       }
     });
     return Scaffold(
@@ -77,7 +78,7 @@ class LoginScreen extends ConsumerWidget {
                     thickness: 2,
                   ),
                   TextButton(
-                      onPressed: () => context.go('/signUp'),
+                      onPressed: () => context.go(AppPaths.signUp),
                       child: const Column(
                         children: <Text>[
                           Text('¿No puedes iniciar sesión?'),
@@ -120,15 +121,16 @@ class _LoginForm extends ConsumerWidget {
           ),
           const SizedBox(height: 20),
           FilledButton(
-              onPressed: () {
-                ref.read(loginFormProvider.notifier).onSubmit();
-                final loginFormData = ref.read(loginFormProvider);
-                ref
-                    .read(authNProvider.notifier)
-                    .login(loginFormData.email, loginFormData.password);
-              },
-              //style:
-              child: const Text('Inicio de Sesión')),
+            onPressed: () {
+              ref.read(loginFormProvider.notifier).onSubmit();
+              final loginFormData = ref.read(loginFormProvider);
+              ref
+                  .read(authNProvider.notifier)
+                  .login(loginFormData.email, loginFormData.password);
+            },
+            //style:
+            child: const Text('Inicio de Sesión'),
+          ),
         ],
       ),
     );

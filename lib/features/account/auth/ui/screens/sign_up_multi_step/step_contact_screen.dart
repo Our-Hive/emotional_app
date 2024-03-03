@@ -1,3 +1,4 @@
+import 'package:diary_emotional_frontend/config/router/app_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -23,22 +24,25 @@ class SignUpStepContactScreen extends StatelessWidget {
                       TextFormField(
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.person),
-                            labelText: 'Nombre'),
+                          prefixIcon: Icon(Icons.person),
+                          labelText: 'Nombre',
+                        ),
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.person_outline),
-                            labelText: 'Apellido'),
+                          prefixIcon: Icon(Icons.person_outline),
+                          labelText: 'Apellido',
+                        ),
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
                         keyboardType: TextInputType.phone,
                         decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.phone),
-                            labelText: 'Teléfono'),
+                          prefixIcon: Icon(Icons.phone),
+                          labelText: 'Teléfono',
+                        ),
                       ),
                       const SizedBox(height: 20),
                       Container(
@@ -66,14 +70,15 @@ class SignUpStepContactScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 FilledButton(
-                    onPressed: () => print('Regístrate'),
-                    child: const Text('Regístrate')),
+                  onPressed: () => print('Regístrate'),
+                  child: const Text('Regístrate'),
+                ),
                 const Divider(
                   height: 50,
                   thickness: 2,
                 ),
                 TextButton(
-                    onPressed: () => context.go('/login'),
+                    onPressed: () => context.go(AppPaths.logIn),
                     child: const Column(
                       children: <Text>[
                         Text('¿Ya tienes cuenta?'),

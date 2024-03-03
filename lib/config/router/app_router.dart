@@ -7,34 +7,35 @@ import 'package:diary_emotional_frontend/features/home/ui/layouts/home_layout.da
 import 'package:diary_emotional_frontend/features/home/ui/screens/home_view.dart';
 import 'package:diary_emotional_frontend/features/info/ui/screens/info_view.dart';
 import 'package:diary_emotional_frontend/features/my_space/ui/screens/my_space_view.dart';
+import 'package:diary_emotional_frontend/config/router/app_paths.dart';
 import 'package:go_router/go_router.dart';
 
-final appRouter = GoRouter(initialLocation: '/login', routes: [
+final appRouter = GoRouter(initialLocation: AppPaths.logIn, routes: [
   GoRoute(
-    path: '/login',
+    path: AppPaths.logIn,
     builder: (context, state) => const LoginScreen(),
   ),
   GoRoute(
-    path: '/signUp',
+    path: AppPaths.signUp,
     builder: (context, state) => const SignUpStepAccountScreen(),
   ),
   GoRoute(
-    path: '/signUp/contact',
+    path: AppPaths.signUpContact,
     builder: (context, state) => const SignUpStepContactScreen(),
   ),
   ShellRoute(
       builder: (context, state, child) => HoneLayout(childView: child),
       routes: [
         GoRoute(
-          path: '/profile',
+          path: AppPaths.profile,
           builder: (context, state) => const ProfileView(),
         ),
         GoRoute(
-          path: '/history',
+          path: AppPaths.history,
           builder: (context, state) => const HistoryView(),
         ),
         GoRoute(
-          path: '/home',
+          path: AppPaths.home,
           builder: (context, state) => const HomeView(),
           routes: [
             GoRoute(
@@ -48,11 +49,11 @@ final appRouter = GoRouter(initialLocation: '/login', routes: [
           ],
         ),
         GoRoute(
-          path: '/info',
+          path: AppPaths.info,
           builder: (context, state) => const InfoView(),
         ),
         GoRoute(
-          path: '/mySpace',
+          path: AppPaths.mySpace,
           builder: (context, state) => const MySpaceView(),
         ),
       ])

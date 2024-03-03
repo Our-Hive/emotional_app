@@ -1,3 +1,4 @@
+import 'package:diary_emotional_frontend/config/router/app_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,19 +8,19 @@ class AppBottomNavbar extends StatelessWidget {
   void _onItemTapped(BuildContext context, int index) {
     switch (index) {
       case 0:
-        context.go('/profile');
+        context.go(AppPaths.profile);
         break;
       case 1:
-        context.go('/history');
+        context.go(AppPaths.history);
         break;
       case 2:
-        context.go('/home');
+        context.go(AppPaths.home);
         break;
       case 3:
-        context.go('/info');
+        context.go(AppPaths.info);
         break;
       case 4:
-        context.go('/mySpace');
+        context.go(AppPaths.mySpace);
         break;
       default:
     }
@@ -30,15 +31,15 @@ class AppBottomNavbar extends StatelessWidget {
   ) {
     final String? path = GoRouterState.of(context).fullPath;
     switch (path) {
-      case '/profile':
+      case AppPaths.profile:
         return 0;
-      case '/history':
+      case AppPaths.history:
         return 1;
-      case '/home':
+      case AppPaths.home:
         return 2;
-      case '/info':
+      case AppPaths.info:
         return 3;
-      case '/mySpace':
+      case AppPaths.mySpace:
         return 4;
       default:
         return 0;

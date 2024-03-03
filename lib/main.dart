@@ -1,5 +1,5 @@
 import 'package:diary_emotional_frontend/config/app_environment.dart';
-import 'package:diary_emotional_frontend/config/app_router.dart';
+import 'package:diary_emotional_frontend/config/router/app_router.dart';
 import 'package:diary_emotional_frontend/config/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
