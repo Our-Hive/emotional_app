@@ -23,7 +23,8 @@ class LoginScreen extends ConsumerWidget {
           );
       }
     });
-    ref.listen(authNProvider, (previous, next) {
+
+    ref.listen(authProvider, (previous, next) {
       if (next.isLoading && next.isAuth == false) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
@@ -43,15 +44,17 @@ class LoginScreen extends ConsumerWidget {
           );
       }
     });
-    ref.listen(authNProvider, (previous, next) {
+
+    ref.listen(authProvider, (previous, next) {
       if (next.isAuth) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         Future.delayed(
-          const Duration(milliseconds: 100),
+          const Duration(milliseconds: 500),
           () => context.go(AppPaths.home),
         );
       }
     });
+
     return Scaffold(
       body: GestureDetector(
         onTap: () {
@@ -64,18 +67,22 @@ class LoginScreen extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  FadeOutUp(
-                    animate: ref.watch(loginFormProvider).isSuccess,
+                  ZoomIn(
+                    animate: true,
                     duration: const Duration(seconds: 1),
-                    child: Container(
-                      padding: const EdgeInsets.all(40),
-                      child: ImageFiltered(
-                        imageFilter: const ColorFilter.mode(
-                          Colors.yellow,
-                          BlendMode.srcATop,
-                        ),
-                        child: Image.asset(
-                          'assets/app_image.png',
+                    child: FadeOutUp(
+                      animate: ref.watch(authProvider).isAuth,
+                      duration: const Duration(milliseconds: 500),
+                      child: Container(
+                        padding: const EdgeInsets.all(40),
+                        child: ImageFiltered(
+                          imageFilter: const ColorFilter.mode(
+                            Colors.yellow,
+                            BlendMode.srcATop,
+                          ),
+                          child: Image.asset(
+                            'assets/app_image.png',
+                          ),
                         ),
                       ),
                     ),
@@ -133,7 +140,7 @@ class _LoginForm extends ConsumerWidget {
               ref.read(loginFormProvider.notifier).onSubmit();
               final loginFormData = ref.read(loginFormProvider);
               ref
-                  .read(authNProvider.notifier)
+                  .read(authProvider.notifier)
                   .login(loginFormData.email, loginFormData.password);
             },
             //style:
