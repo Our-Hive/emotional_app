@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:emotional_app/config/router/app_paths.dart';
 import 'package:emotional_app/features/account/auth/ui/provider/auth_provider.dart';
@@ -24,6 +22,16 @@ class LoginScreen extends ConsumerWidget {
             ),
           );
       }
+      if (next.isFailure && !next.isSubmitting) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            const SnackBar(
+              content: Text('Verifique los campos.'),
+            ),
+          );
+      }
     });
 
     ref.listen(authProvider, (previous, next) {
@@ -45,9 +53,6 @@ class LoginScreen extends ConsumerWidget {
             ),
           );
       }
-    });
-
-    ref.listen(authProvider, (previous, next) {
       if (next.isAuth) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         Future.delayed(
@@ -95,13 +100,14 @@ class LoginScreen extends ConsumerWidget {
                     thickness: 2,
                   ),
                   TextButton(
-                      onPressed: () => context.go(AppPaths.signUp),
-                      child: const Column(
-                        children: <Text>[
-                          Text('¿No puedes iniciar sesión?'),
-                          Text('Crear Cuenta'),
-                        ],
-                      )),
+                    onPressed: () => context.go(AppPaths.signUp),
+                    child: const Column(
+                      children: <Text>[
+                        Text('¿No puedes iniciar sesión?'),
+                        Text('Crear Cuenta'),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -127,23 +133,26 @@ class _LoginForm extends ConsumerWidget {
               labelText: 'Correo Electrónico',
             ),
             onChanged: (value) => ref
-                .read(loginFormProvider.notifier)
+                .watch(loginFormProvider.notifier)
                 .onEmailChanged(value.trim().toLowerCase()),
           ),
           const SizedBox(height: 20),
           PasswordFormField(
             onChangedCallBack: (value) => ref
-                .read(loginFormProvider.notifier)
+                .watch(loginFormProvider.notifier)
                 .onPasswordChanged(value.trim().toLowerCase()),
           ),
           const SizedBox(height: 20),
           FilledButton(
             onPressed: () {
-              ref.read(loginFormProvider.notifier).onSubmit();
-              final loginFormData = ref.read(loginFormProvider);
-              ref
-                  .read(authProvider.notifier)
-                  .login(loginFormData.email, loginFormData.password);
+              final isValidated =
+                  ref.watch(loginFormProvider.notifier).onSubmit();
+              if (isValidated) {
+                final loginFormData = ref.watch(loginFormProvider);
+                ref
+                    .watch(authProvider.notifier)
+                    .login(loginFormData.email, loginFormData.password);
+              }
             },
             //style:
             child: const Text('Inicio de Sesión'),

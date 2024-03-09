@@ -1,4 +1,5 @@
-import 'package:emotional_app/features/account/auth/domain/entities/login.dart';
+import 'package:emotional_app/features/account/auth/domain/entities/login_credentials.dart';
+import 'package:emotional_app/features/account/auth/domain/entities/sign_up_credentials.dart';
 import 'package:emotional_app/features/account/auth/domain/repository/auth_repo.dart';
 import 'package:emotional_app/features/account/auth/infra/data_source/auth_api_data_source.dart';
 import 'package:emotional_app/features/account/auth/infra/repo/auth_repo_impl.dart';
@@ -23,6 +24,17 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       final token = await _authRepo
           .login(LoginCredentials(email: email, password: password));
+      state = state.copyWith(
+          isLoading: false, isAuth: true, token: token.accessToken);
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: e.toString());
+    }
+  }
+
+  Future<void> signUp(SignUpCredentials signUpCredentials) async {
+    state = state.copyWith(isLoading: true, error: '');
+    try {
+      final token = await _authRepo.signUp(signUpCredentials);
       state = state.copyWith(
           isLoading: false, isAuth: true, token: token.accessToken);
     } catch (e) {
