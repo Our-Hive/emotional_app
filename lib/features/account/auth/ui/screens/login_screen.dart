@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:emotional_app/config/router/app_paths.dart';
 import 'package:emotional_app/features/account/auth/ui/provider/auth_provider.dart';
