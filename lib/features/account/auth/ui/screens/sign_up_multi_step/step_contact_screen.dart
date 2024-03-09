@@ -22,6 +22,7 @@ class SignUpStepContactScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       const _OurHiveSignUpText(),
+                      const SizedBox(height: 20),
                       TextFormField(
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
