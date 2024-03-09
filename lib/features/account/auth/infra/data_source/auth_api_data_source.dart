@@ -6,7 +6,7 @@ import 'package:emotional_app/features/account/auth/domain/entities/token.dart';
 import 'package:emotional_app/features/account/auth/infra/exceptions/invalid_credentials.dart';
 import 'package:emotional_app/features/account/auth/infra/mapper/token_login_api_mapper.dart';
 import 'package:emotional_app/features/account/auth/infra/model/auth_api_response.dart';
-import 'package:emotional_app/shared/exceptions/http_exception.dart';
+import 'package:emotional_app/shared/infra/exceptions/http_exception.dart';
 import 'package:dio/dio.dart';
 
 class AuthApiDataSourceImpl implements AuthDataSource {
