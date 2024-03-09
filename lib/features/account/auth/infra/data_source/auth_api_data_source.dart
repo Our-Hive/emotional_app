@@ -1,6 +1,7 @@
 import 'package:emotional_app/config/app_environment.dart';
 import 'package:emotional_app/features/account/auth/domain/data_source/auth_data_source.dart';
 import 'package:emotional_app/features/account/auth/domain/entities/login_credentials.dart';
+import 'package:emotional_app/features/account/auth/domain/entities/sign_up_credentials.dart';
 import 'package:emotional_app/features/account/auth/domain/entities/token.dart';
 import 'package:emotional_app/features/account/auth/infra/exceptions/invalid_credentials.dart';
 import 'package:emotional_app/features/account/auth/infra/mapper/token_login_api_mapper.dart';
@@ -32,5 +33,11 @@ class AuthApiDataSourceImpl implements AuthDataSource {
     } catch (e) {
       throw HttpException();
     }
+  }
+
+  @override
+  Future<Token> signUp(SignUpCredentials signUpCredentials) {
+    // TODO: implement signUp
+    throw UnimplementedError();
   }
 }
