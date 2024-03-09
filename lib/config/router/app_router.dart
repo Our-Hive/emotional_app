@@ -1,13 +1,13 @@
-import 'package:diary_emotional_frontend/features/account/auth/ui/screens/login_screen.dart';
-import 'package:diary_emotional_frontend/features/account/auth/ui/screens/sign_up_multi_step/step_account_screen.dart';
-import 'package:diary_emotional_frontend/features/account/auth/ui/screens/sign_up_multi_step/step_contact_screen.dart';
-import 'package:diary_emotional_frontend/features/account/user/ui/screens/profile_view.dart';
-import 'package:diary_emotional_frontend/features/history/ui/screens/history_view.dart';
-import 'package:diary_emotional_frontend/features/home/ui/layouts/home_layout.dart';
-import 'package:diary_emotional_frontend/features/home/ui/screens/home_view.dart';
-import 'package:diary_emotional_frontend/features/info/ui/screens/info_view.dart';
-import 'package:diary_emotional_frontend/features/my_space/ui/screens/my_space_view.dart';
-import 'package:diary_emotional_frontend/config/router/app_paths.dart';
+import 'package:emotional_app/features/account/auth/ui/screens/login_screen.dart';
+import 'package:emotional_app/features/account/auth/ui/screens/sign_up_multi_step/step_account_screen.dart';
+import 'package:emotional_app/features/account/auth/ui/screens/sign_up_multi_step/step_contact_screen.dart';
+import 'package:emotional_app/features/account/user/ui/screens/profile_view.dart';
+import 'package:emotional_app/features/history/ui/screens/history_view.dart';
+import 'package:emotional_app/features/home/ui/layouts/home_layout.dart';
+import 'package:emotional_app/features/home/ui/screens/home_view.dart';
+import 'package:emotional_app/features/info/ui/screens/info_view.dart';
+import 'package:emotional_app/features/my_space/ui/screens/my_space_view.dart';
+import 'package:emotional_app/config/router/app_paths.dart';
 import 'package:go_router/go_router.dart';
 
 final appRouter = GoRouter(initialLocation: AppPaths.logIn, routes: [

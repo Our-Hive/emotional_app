@@ -1,11 +1,11 @@
-import 'package:diary_emotional_frontend/config/app_environment.dart';
-import 'package:diary_emotional_frontend/features/account/auth/domain/data_source/auth_data_source.dart';
-import 'package:diary_emotional_frontend/features/account/auth/domain/entities/login.dart';
-import 'package:diary_emotional_frontend/features/account/auth/domain/entities/token.dart';
-import 'package:diary_emotional_frontend/features/account/auth/infra/exceptions/invalid_credentials.dart';
-import 'package:diary_emotional_frontend/features/account/auth/infra/mapper/token_login_api_mapper.dart';
-import 'package:diary_emotional_frontend/features/account/auth/infra/model/login_api_response.dart';
-import 'package:diary_emotional_frontend/shared/exceptions/http_exception.dart';
+import 'package:emotional_app/config/app_environment.dart';
+import 'package:emotional_app/features/account/auth/domain/data_source/auth_data_source.dart';
+import 'package:emotional_app/features/account/auth/domain/entities/login.dart';
+import 'package:emotional_app/features/account/auth/domain/entities/token.dart';
+import 'package:emotional_app/features/account/auth/infra/exceptions/invalid_credentials.dart';
+import 'package:emotional_app/features/account/auth/infra/mapper/token_login_api_mapper.dart';
+import 'package:emotional_app/features/account/auth/infra/model/login_api_response.dart';
+import 'package:emotional_app/shared/exceptions/http_exception.dart';
 import 'package:dio/dio.dart';
 
 class AuthApiDataSourceImpl implements AuthDataSource {

@@ -1,4 +1,4 @@
-package com.example.diary_emotional_frontend
+package com.example.emotional_app
 
 import io.flutter.embedding.android.FlutterActivity
 

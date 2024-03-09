@@ -1,7 +1,7 @@
-import 'package:diary_emotional_frontend/features/account/auth/domain/entities/login.dart';
-import 'package:diary_emotional_frontend/features/account/auth/domain/repository/auth_repo.dart';
-import 'package:diary_emotional_frontend/features/account/auth/infra/data_source/auth_api_data_source.dart';
-import 'package:diary_emotional_frontend/features/account/auth/infra/repo/auth_repo_impl.dart';
+import 'package:emotional_app/features/account/auth/domain/entities/login.dart';
+import 'package:emotional_app/features/account/auth/domain/repository/auth_repo.dart';
+import 'package:emotional_app/features/account/auth/infra/data_source/auth_api_data_source.dart';
+import 'package:emotional_app/features/account/auth/infra/repo/auth_repo_impl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>(
