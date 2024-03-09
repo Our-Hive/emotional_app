@@ -22,6 +22,16 @@ class LoginScreen extends ConsumerWidget {
             ),
           );
       }
+      if (next.isFailure && !next.isSubmitting) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            const SnackBar(
+              content: Text('Verifique los campos.'),
+            ),
+          );
+      }
     });
 
     ref.listen(authProvider, (previous, next) {
@@ -43,9 +53,6 @@ class LoginScreen extends ConsumerWidget {
             ),
           );
       }
-    });
-
-    ref.listen(authProvider, (previous, next) {
       if (next.isAuth) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         Future.delayed(
@@ -93,13 +100,14 @@ class LoginScreen extends ConsumerWidget {
                     thickness: 2,
                   ),
                   TextButton(
-                      onPressed: () => context.go(AppPaths.signUp),
-                      child: const Column(
-                        children: <Text>[
-                          Text('¿No puedes iniciar sesión?'),
-                          Text('Crear Cuenta'),
-                        ],
-                      )),
+                    onPressed: () => context.go(AppPaths.signUp),
+                    child: const Column(
+                      children: <Text>[
+                        Text('¿No puedes iniciar sesión?'),
+                        Text('Crear Cuenta'),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -137,11 +145,14 @@ class _LoginForm extends ConsumerWidget {
           const SizedBox(height: 20),
           FilledButton(
             onPressed: () {
-              ref.read(loginFormProvider.notifier).onSubmit();
-              final loginFormData = ref.read(loginFormProvider);
-              ref
-                  .read(authProvider.notifier)
-                  .login(loginFormData.email, loginFormData.password);
+              final isValidated =
+                  ref.read(loginFormProvider.notifier).onSubmit();
+              if (isValidated) {
+                final loginFormData = ref.read(loginFormProvider);
+                ref
+                    .read(authProvider.notifier)
+                    .login(loginFormData.email, loginFormData.password);
+              }
             },
             //style:
             child: const Text('Inicio de Sesión'),

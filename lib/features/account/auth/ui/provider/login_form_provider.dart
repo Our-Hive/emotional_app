@@ -16,18 +16,25 @@ class LoginFormNotifier extends StateNotifier<LoginFormState> {
     state = state.copyWith(password: password);
   }
 
-  void onSubmit() {
+  bool onSubmit() {
     state = state.copyWith(isSubmitting: true);
     if (validateCredentials()) {
-      state = state.copyWith(isSuccess: true, isSubmitting: false);
+      state = state.copyWith(
+        isSuccess: true,
+        isSubmitting: false,
+      );
+      return true;
     } else {
-      state = state.copyWith(isFailure: true, isSubmitting: false);
+      state = state.copyWith(
+        isFailure: true,
+        isSubmitting: false,
+      );
+      return false;
     }
   }
 
   bool validateCredentials() {
-    // TODO: validate email and password
-    return true;
+    return state.email.isNotEmpty && state.password.isNotEmpty;
   }
 }
 
