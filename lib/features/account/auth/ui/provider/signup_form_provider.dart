@@ -56,6 +56,7 @@ class SignUpFormNotifier extends StateNotifier<SignUpFormState> {
     state = state.copyWith(
       currentStep: SignUpStep.accountStep,
       state: SignUpState.validating,
+      errorMessage: '',
     );
     if (validateAccountStep()) {
       state = state.copyWith(
@@ -63,7 +64,10 @@ class SignUpFormNotifier extends StateNotifier<SignUpFormState> {
         state: SignUpState.success,
       );
     } else {
-      state = state.copyWith(state: SignUpState.failure);
+      state = state.copyWith(
+        state: SignUpState.failure,
+        errorMessage: 'Campos inválidos',
+      );
     }
   }
 
@@ -85,8 +89,15 @@ class SignUpFormNotifier extends StateNotifier<SignUpFormState> {
         state: SignUpState.success,
       );
     } else {
-      state = state.copyWith(state: SignUpState.failure);
+      state = state.copyWith(
+        state: SignUpState.failure,
+        errorMessage: 'Campos inválidos',
+      );
     }
+  }
+
+  void cleanState() {
+    state = SignUpFormState();
   }
 }
 
@@ -115,6 +126,7 @@ class SignUpFormState {
   final String phoneNumber;
   final DateTime? birthDate;
   final SignUpState state;
+  final String errorMessage;
 
   SignUpFormState({
     this.nickName = '',
@@ -127,6 +139,7 @@ class SignUpFormState {
     this.phoneNumber = '',
     this.birthDate,
     this.state = SignUpState.empty,
+    this.errorMessage = '',
   });
   SignUpFormState copyWith({
     String? nickName,
@@ -139,6 +152,7 @@ class SignUpFormState {
     String? phoneNumber,
     DateTime? birthDate,
     SignUpState? state,
+    String? errorMessage,
   }) =>
       SignUpFormState(
         nickName: nickName ?? this.nickName,
@@ -151,5 +165,6 @@ class SignUpFormState {
         phoneNumber: phoneNumber ?? this.phoneNumber,
         birthDate: birthDate ?? this.birthDate,
         state: state ?? this.state,
+        errorMessage: errorMessage ?? this.errorMessage,
       );
 }
