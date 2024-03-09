@@ -1,5 +1,5 @@
 import 'package:emotional_app/features/account/auth/domain/data_source/auth_data_source.dart';
-import 'package:emotional_app/features/account/auth/domain/entities/login.dart';
+import 'package:emotional_app/features/account/auth/domain/entities/login_credentials.dart';
 import 'package:emotional_app/features/account/auth/domain/entities/token.dart';
 import 'package:emotional_app/features/account/auth/domain/repository/auth_repo.dart';
 

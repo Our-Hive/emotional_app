@@ -1,6 +1,6 @@
 import 'package:emotional_app/config/app_environment.dart';
 import 'package:emotional_app/features/account/auth/domain/data_source/auth_data_source.dart';
-import 'package:emotional_app/features/account/auth/domain/entities/login.dart';
+import 'package:emotional_app/features/account/auth/domain/entities/login_credentials.dart';
 import 'package:emotional_app/features/account/auth/domain/entities/token.dart';
 import 'package:emotional_app/features/account/auth/infra/exceptions/invalid_credentials.dart';
 import 'package:emotional_app/features/account/auth/infra/mapper/token_login_api_mapper.dart';
