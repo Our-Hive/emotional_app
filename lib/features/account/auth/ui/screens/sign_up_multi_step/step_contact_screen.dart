@@ -1,4 +1,5 @@
 import 'package:emotional_app/config/router/app_paths.dart';
+import 'package:emotional_app/features/account/auth/ui/widgets/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -45,26 +46,7 @@ class SignUpStepContactScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: FilledButton.tonalIcon(
-                          onPressed: () async {
-                            DateTime? selectedDate = await showDatePicker(
-                              context: context,
-                              firstDate: DateTime(1900),
-                              initialDate: DateTime.now(),
-                              lastDate: DateTime.now(),
-                            );
-                            if (selectedDate != null) print(selectedDate);
-                          },
-                          icon: const Icon(Icons.calendar_today),
-                          label:
-                              const Text('Selecciona tu fecha de nacimiento'),
-                        ),
-                      )
+                      const DateField(),
                     ],
                   ),
                 ),
