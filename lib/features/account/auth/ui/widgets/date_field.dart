@@ -1,17 +1,18 @@
+import 'package:emotional_app/features/account/auth/ui/provider/signup_form_provider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:emotional_app/shared/utils/date_time_formatter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DateField extends StatefulWidget {
+class DateField extends ConsumerStatefulWidget {
   const DateField({
     super.key,
   });
 
   @override
-  State<DateField> createState() => _DateFieldState();
+  DateFieldState createState() => DateFieldState();
 }
 
-class _DateFieldState extends State<DateField> {
+class DateFieldState extends ConsumerState<DateField> {
   DateTime? _selectedDate;
 
   @override
@@ -33,6 +34,9 @@ class _DateFieldState extends State<DateField> {
             setState(() {
               _selectedDate = selectedDate;
             });
+            ref
+                .watch(signUpFormProvider.notifier)
+                .onBirthDateChanged(selectedDate);
           }
         },
         icon: const Icon(Icons.calendar_today),
