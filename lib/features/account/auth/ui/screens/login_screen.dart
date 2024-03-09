@@ -133,24 +133,24 @@ class _LoginForm extends ConsumerWidget {
               labelText: 'Correo Electrónico',
             ),
             onChanged: (value) => ref
-                .read(loginFormProvider.notifier)
+                .watch(loginFormProvider.notifier)
                 .onEmailChanged(value.trim().toLowerCase()),
           ),
           const SizedBox(height: 20),
           PasswordFormField(
             onChangedCallBack: (value) => ref
-                .read(loginFormProvider.notifier)
+                .watch(loginFormProvider.notifier)
                 .onPasswordChanged(value.trim().toLowerCase()),
           ),
           const SizedBox(height: 20),
           FilledButton(
             onPressed: () {
               final isValidated =
-                  ref.read(loginFormProvider.notifier).onSubmit();
+                  ref.watch(loginFormProvider.notifier).onSubmit();
               if (isValidated) {
-                final loginFormData = ref.read(loginFormProvider);
+                final loginFormData = ref.watch(loginFormProvider);
                 ref
-                    .read(authProvider.notifier)
+                    .watch(authProvider.notifier)
                     .login(loginFormData.email, loginFormData.password);
               }
             },
