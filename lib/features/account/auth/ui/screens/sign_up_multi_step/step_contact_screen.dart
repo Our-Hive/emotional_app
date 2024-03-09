@@ -1,7 +1,8 @@
-import 'package:emotional_app/config/router/app_paths.dart';
+import 'package:emotional_app/features/account/auth/ui/provider/signup_form_provider.dart';
 import 'package:emotional_app/features/account/auth/ui/widgets/date_field.dart';
+import 'package:emotional_app/features/account/auth/ui/widgets/to_login_text_button.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SignUpStepContactScreen extends StatelessWidget {
   const SignUpStepContactScreen({super.key});
@@ -12,66 +13,102 @@ class SignUpStepContactScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Registro'),
       ),
-      body: Center(
+      body: const Center(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(20),
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                Form(
-                  child: Column(
-                    children: [
-                      const _OurHiveSignUpText(),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.person),
-                          labelText: 'Nombre',
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.person_outline),
-                          labelText: 'Apellido',
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        keyboardType: TextInputType.phone,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.phone),
-                          labelText: 'Teléfono',
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      const DateField(),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                FilledButton(
-                  onPressed: () => print('Regístrate'),
-                  child: const Text('Regístrate'),
-                ),
-                const Divider(
+                _SignUpContactForm(),
+                Divider(
                   height: 50,
                   thickness: 2,
                 ),
-                TextButton(
-                    onPressed: () => context.go(AppPaths.logIn),
-                    child: const Column(
-                      children: <Text>[
-                        Text('¿Ya tienes cuenta?'),
-                        Text('Inicia sesión'),
-                      ],
-                    )),
+                ToLoginTextButton()
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _SignUpContactForm extends ConsumerWidget {
+  const _SignUpContactForm();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final ColorScheme appColors = Theme.of(context).colorScheme;
+    ref.listen(
+      signUpFormProvider,
+      (_, next) {
+        if (next.state == SignUpState.success &&
+            next.currentStep == SignUpStep.summitStep) {
+          // TODO: AUTH STATE
+        }
+
+        if (next.state == SignUpState.failure && next.errorMessage.isNotEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                next.errorMessage,
+                style: TextStyle(
+                  color: appColors.onError,
+                ),
+              ),
+              backgroundColor: appColors.error,
+            ),
+          );
+        }
+      },
+    );
+
+    return Form(
+      child: Column(
+        children: [
+          const _OurHiveSignUpText(),
+          const SizedBox(height: 20),
+          TextFormField(
+            keyboardType: TextInputType.name,
+            onChanged: (value) => ref
+                .watch(signUpFormProvider.notifier)
+                .onFirstNameChanged(value),
+            decoration: const InputDecoration(
+              prefixIcon: Icon(Icons.person),
+              labelText: 'Nombre',
+            ),
+          ),
+          const SizedBox(height: 20),
+          TextFormField(
+            keyboardType: TextInputType.name,
+            onChanged: (value) =>
+                ref.watch(signUpFormProvider.notifier).onLastNameChanged(value),
+            decoration: const InputDecoration(
+              prefixIcon: Icon(Icons.person_outline),
+              labelText: 'Apellido',
+            ),
+          ),
+          const SizedBox(height: 20),
+          TextFormField(
+            keyboardType: TextInputType.phone,
+            onChanged: (value) => ref
+                .watch(signUpFormProvider.notifier)
+                .onPhoneNumberChanged(value),
+            decoration: const InputDecoration(
+              prefixIcon: Icon(Icons.phone),
+              labelText: 'Teléfono',
+            ),
+          ),
+          const SizedBox(height: 20),
+          const DateField(),
+          const SizedBox(height: 20),
+          FilledButton(
+            onPressed: () =>
+                ref.watch(signUpFormProvider.notifier).onSummitContactStep(),
+            child: const Text('Regístrate'),
+          ),
+        ],
       ),
     );
   }
