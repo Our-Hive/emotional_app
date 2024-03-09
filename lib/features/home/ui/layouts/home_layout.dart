@@ -1,4 +1,4 @@
-import 'package:diary_emotional_frontend/features/home/ui/widgets/app_bottom_navbar.dart';
+import 'package:emotional_app/features/home/ui/widgets/app_bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
 class HoneLayout extends StatelessWidget {

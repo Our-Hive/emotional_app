@@ -1,6 +1,6 @@
 {
-    "name": "diary_emotional_frontend",
-    "short_name": "diary_emotional_frontend",
+    "name": "emotional_app",
+    "short_name": "emotional_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

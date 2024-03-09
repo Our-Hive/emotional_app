@@ -1,4 +1,4 @@
-# diary_emotional_frontend
+# Our Hive - Emotional App
 
 ## Getting Started
 

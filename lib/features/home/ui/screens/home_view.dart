@@ -1,5 +1,5 @@
-import 'package:diary_emotional_frontend/config/router/app_paths.dart';
-import 'package:diary_emotional_frontend/features/home/ui/widgets/home_card.dart';
+import 'package:emotional_app/config/router/app_paths.dart';
+import 'package:emotional_app/features/home/ui/widgets/home_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

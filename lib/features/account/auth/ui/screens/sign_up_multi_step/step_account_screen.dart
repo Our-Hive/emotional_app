@@ -1,5 +1,5 @@
-import 'package:diary_emotional_frontend/config/router/app_paths.dart';
-import 'package:diary_emotional_frontend/features/account/auth/ui/widgets/password_form_field.dart';
+import 'package:emotional_app/config/router/app_paths.dart';
+import 'package:emotional_app/features/account/auth/ui/widgets/password_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
