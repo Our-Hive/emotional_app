@@ -43,7 +43,7 @@ class AuthApiDataSourceImpl implements AuthDataSource {
           'username': signUpCredentials.username,
           'email': signUpCredentials.email,
           'password': signUpCredentials.password,
-          'birthDate': signUpCredentials.birthDate,
+          'birthDate': signUpCredentials.birthDate.toString(),
           'mobileNumber': signUpCredentials.phoneNumber,
           'firstName': signUpCredentials.firstName,
           'lastName': signUpCredentials.lastName,

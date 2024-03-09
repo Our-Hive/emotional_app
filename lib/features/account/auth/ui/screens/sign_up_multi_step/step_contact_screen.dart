@@ -1,8 +1,12 @@
+import 'package:emotional_app/config/router/app_paths.dart';
+import 'package:emotional_app/features/account/auth/domain/entities/sign_up_credentials.dart';
+import 'package:emotional_app/features/account/auth/ui/provider/auth_provider.dart';
 import 'package:emotional_app/features/account/auth/ui/provider/signup_form_provider.dart';
 import 'package:emotional_app/features/account/auth/ui/widgets/date_field.dart';
 import 'package:emotional_app/features/account/auth/ui/widgets/to_login_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class SignUpStepContactScreen extends StatelessWidget {
   const SignUpStepContactScreen({super.key});
@@ -40,14 +44,43 @@ class _SignUpContactForm extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
+
+    ref.listen(authProvider, (_, next) {
+      if (next.isAuth) {
+        context.go(AppPaths.home);
+      }
+      if (next.error.isNotEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              next.error,
+              style: TextStyle(
+                color: appColors.onError,
+              ),
+            ),
+            backgroundColor: appColors.error,
+          ),
+        );
+      }
+    });
+
     ref.listen(
       signUpFormProvider,
       (_, next) {
         if (next.state == SignUpState.success &&
             next.currentStep == SignUpStep.summitStep) {
-          // TODO: AUTH STATE
+          ref.watch(authProvider.notifier).signUp(
+                SignUpCredentials(
+                  birthDate: next.birthDate!,
+                  email: next.email,
+                  firstName: next.firstName,
+                  lastName: next.lastName,
+                  password: next.password,
+                  phoneNumber: next.phoneNumber,
+                  username: next.nickName,
+                ),
+              );
         }
-
         if (next.state == SignUpState.failure && next.errorMessage.isNotEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
