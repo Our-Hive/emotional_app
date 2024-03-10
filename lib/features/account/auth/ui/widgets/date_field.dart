@@ -1,6 +1,6 @@
 import 'package:emotional_app/features/account/auth/ui/provider/signup_form_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:emotional_app/shared/utils/date_time_formatter.dart';
+import 'package:emotional_app/shared/domain/utils/date_time_formatter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DateField extends ConsumerStatefulWidget {

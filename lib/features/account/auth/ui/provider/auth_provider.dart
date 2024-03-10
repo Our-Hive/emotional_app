@@ -1,31 +1,52 @@
 import 'package:emotional_app/features/account/auth/domain/entities/login_credentials.dart';
 import 'package:emotional_app/features/account/auth/domain/entities/sign_up_credentials.dart';
+import 'package:emotional_app/features/account/auth/domain/repository/auth_local_repo.dart';
 import 'package:emotional_app/features/account/auth/domain/repository/auth_repo.dart';
-import 'package:emotional_app/features/account/auth/infra/data_source/auth_api_data_source.dart';
+import 'package:emotional_app/features/account/auth/infra/data_source/auth_api_data_source_impl.dart';
+import 'package:emotional_app/features/account/auth/infra/data_source/auth_local_data_source_impl.dart';
+import 'package:emotional_app/features/account/auth/infra/repo/auth_local_repo_impl.dart';
 import 'package:emotional_app/features/account/auth/infra/repo/auth_repo_impl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>(
   (ref) => AuthNotifier(
-    authRepo: AuthRepoImpl(
+    authApiRepo: AuthRepoImpl(
       authDataSource: AuthApiDataSourceImpl(),
+    ),
+    authLocalRepo: AuthLocalRepoImpl(
+      authLocalDataSource: AuthLocalDataSourceImpl(),
     ),
   ),
 );
 
 class AuthNotifier extends StateNotifier<AuthState> {
-  final AuthRepo _authRepo;
-  AuthNotifier({required AuthRepo authRepo})
-      : _authRepo = authRepo,
+  final AuthRepo _authApiRepo;
+  final AuthLocalRepo _authLocalRepo;
+
+  AuthNotifier(
+      {required AuthRepo authApiRepo, required AuthLocalRepo authLocalRepo})
+      : _authApiRepo = authApiRepo,
+        _authLocalRepo = authLocalRepo,
         super(AuthState.initial());
 
   Future<void> login(String email, String password) async {
     state = state.copyWith(isLoading: true, error: '');
     try {
-      final token = await _authRepo
-          .login(LoginCredentials(email: email, password: password));
+      final token = await _authApiRepo.login(
+        LoginCredentials(
+          email: email,
+          password: password,
+        ),
+      );
+      final isSaved = await _authLocalRepo.saveAuthToken(token);
+      if (!isSaved) {
+        throw Exception('Error saving token.');
+      }
       state = state.copyWith(
-          isLoading: false, isAuth: true, token: token.accessToken);
+        isLoading: false,
+        isAuth: true,
+        token: token.accessToken,
+      );
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
     }
@@ -34,9 +55,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> signUp(SignUpCredentials signUpCredentials) async {
     state = state.copyWith(isLoading: true, error: '');
     try {
-      final token = await _authRepo.signUp(signUpCredentials);
+      final token = await _authApiRepo.signUp(signUpCredentials);
+      final isSaved = await _authLocalRepo.saveAuthToken(token);
+      if (!isSaved) {
+        throw Exception('Error saving token.');
+      }
       state = state.copyWith(
-          isLoading: false, isAuth: true, token: token.accessToken);
+        isLoading: false,
+        isAuth: true,
+        token: token.accessToken,
+      );
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
     }
