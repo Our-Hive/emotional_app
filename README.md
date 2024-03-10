@@ -26,3 +26,7 @@ Open a terminal in the root folder of the project and run the following command:
 ```sh 
 flutter pub run flutter_launcher_icons 
 ```
+## How to generate the Hive files
+```sh
+flutter packages pub run build_runner build
+```
