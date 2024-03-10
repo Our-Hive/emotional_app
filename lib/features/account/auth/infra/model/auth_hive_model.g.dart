@@ -16,7 +16,9 @@ class AuthHiveModelAdapter extends TypeAdapter<AuthHiveModel> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return AuthHiveModel()..token = fields[0] as String;
+    return AuthHiveModel(
+      token: fields[0] as String,
+    );
   }
 
   @override
