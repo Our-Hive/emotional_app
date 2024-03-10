@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:emotional_app/features/account/auth/infra/model/auth_hive_model.dart';
+import 'package:emotional_app/features/account/auth/infrastructure/model/auth_hive_model.dart';
 
 class HiveSetUp {
   static String authBox = 'auth_box';
