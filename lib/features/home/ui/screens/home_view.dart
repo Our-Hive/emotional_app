@@ -9,6 +9,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final sizeByCard = size.height / 3;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
@@ -22,7 +23,7 @@ class HomeView extends StatelessWidget {
                 title: 'Diario Emocional',
                 description:
                     'Registra tus emociones que has sentido a lo largo de tu dia, con el fin de tener un control de tus emociones y diariamente ser mas consiente de ellas.',
-                height: size.height / 3,
+                height: sizeByCard,
                 imagePath: 'assets/images/diary.jpeg',
                 onTap: () => context.push('${AppPaths.home}${AppPaths.diary}'),
               ),
@@ -30,7 +31,7 @@ class HomeView extends StatelessWidget {
                 title: 'Emociones Trascendentales',
                 description:
                     'Conoce tus emociones, creando registros de tus emociones mas relevantes, usa esta herramienta para guardar los momentos en los cuales te sientes mas emocionado o te cuesta saber que sentiste en el momento.',
-                height: size.height / 3,
+                height: sizeByCard,
                 imagePath: 'assets/images/trascendental.jpeg',
                 onTap: () =>
                     context.push('${AppPaths.home}${AppPaths.transcendental}'),
