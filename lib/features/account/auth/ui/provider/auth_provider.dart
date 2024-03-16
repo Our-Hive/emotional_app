@@ -1,5 +1,6 @@
 import 'package:emotional_app/features/account/auth/domain/entities/login_credentials.dart';
 import 'package:emotional_app/features/account/auth/domain/entities/sign_up_credentials.dart';
+import 'package:emotional_app/features/account/auth/domain/entities/token.dart';
 import 'package:emotional_app/features/account/auth/domain/repository/auth_local_repo.dart';
 import 'package:emotional_app/features/account/auth/domain/repository/auth_repo.dart';
 import 'package:emotional_app/features/account/auth/infrastructure/data_source/auth_api_data_source_impl.dart';
@@ -45,7 +46,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       state = state.copyWith(
         isLoading: false,
         isAuth: true,
-        token: token.accessToken,
+        token: token,
       );
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
@@ -63,7 +64,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       state = state.copyWith(
         isLoading: false,
         isAuth: true,
-        token: token.accessToken,
+        token: token,
       );
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
@@ -74,13 +75,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
 class AuthState {
   final bool isLoading;
   final bool isAuth;
-  final String token;
+  final Token? token;
   final String error;
 
   AuthState({
     required this.isLoading,
     required this.isAuth,
-    this.token = '',
+    this.token,
     this.error = '',
   });
 
@@ -94,7 +95,7 @@ class AuthState {
   AuthState copyWith({
     bool? isLoading,
     bool? isAuth,
-    String? token,
+    Token? token,
     String? error,
   }) {
     return AuthState(

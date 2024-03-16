@@ -1,12 +1,29 @@
+import 'package:emotional_app/features/account/user/domain/entities/user.dart';
+import 'package:emotional_app/features/account/user/ui/provider/user_provider.dart';
+import 'package:emotional_app/shared/domain/utils/date_time_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProfileView extends StatelessWidget {
+class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final appColors = Theme.of(context).colorScheme;
+  ProfileViewState createState() => ProfileViewState();
+}
 
+class ProfileViewState extends ConsumerState<ProfileView> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(userProvider.notifier).getUser();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    User? user = ref.watch(userProvider).currentUser;
+    final appColors = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Perfil'),
@@ -23,7 +40,7 @@ class ProfileView extends StatelessWidget {
                   const SizedBox(height: 5),
                   ImageFiltered(
                     imageFilter: ColorFilter.mode(
-                      appColors.primary,
+                      user!.photoColor,
                       BlendMode.srcATop,
                     ),
                     child: const Image(
@@ -33,16 +50,16 @@ class ProfileView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  const Text(
-                    'Hola firstName lastName',
-                    style: TextStyle(
+                  Text(
+                    'Hola\r${user.firstName}\r${user.lastName}',
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Text(
-                    'test@email.com',
-                    style: TextStyle(
+                  Text(
+                    user.email,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.white60,
@@ -52,7 +69,7 @@ class ProfileView extends StatelessWidget {
                   _ActiveTextFormField(
                     appColors: appColors,
                     primaryText: 'Username',
-                    secondaryText: 'Pepita',
+                    secondaryText: user.userName,
                   ),
                   const SizedBox(height: 15),
                   _ActiveTextFormField(
@@ -64,7 +81,9 @@ class ProfileView extends StatelessWidget {
                   _ActiveTextFormField(
                     appColors: appColors,
                     primaryText: 'Fecha de Nacimiento',
-                    secondaryText: '18-02-2024',
+                    secondaryText: DateTimeFormatter.getFormattedDate(
+                      user.birthDate,
+                    ),
                   ),
                   const SizedBox(height: 15),
                   Container(
