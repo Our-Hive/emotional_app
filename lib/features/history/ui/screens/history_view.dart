@@ -8,7 +8,7 @@ class HistoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('History'),
+        title: const Text('Historial'),
       ),
       body: const Center(
         child: Padding(

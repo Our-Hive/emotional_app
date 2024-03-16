@@ -71,9 +71,9 @@ class AppBottomNavbar extends StatelessWidget {
           activeIcon: Icon(
             Icons.history,
           ),
-          label: 'History',
+          label: 'Historial',
           backgroundColor: Color(0xffADD7DE),
-          tooltip: 'History',
+          tooltip: 'Historial de emociones',
         ),
         BottomNavigationBarItem(
           icon: Icon(
@@ -82,9 +82,9 @@ class AppBottomNavbar extends StatelessWidget {
           activeIcon: Icon(
             Icons.sentiment_very_satisfied,
           ),
-          label: 'Emotions',
+          label: 'Emociones',
           backgroundColor: Color(0xFFADDEB6),
-          tooltip: 'Registro de Emociones',
+          tooltip: 'Registro de emociones',
         ),
         BottomNavigationBarItem(
           icon: Icon(
@@ -93,9 +93,9 @@ class AppBottomNavbar extends StatelessWidget {
           activeIcon: Icon(
             Icons.info,
           ),
-          label: 'Information',
+          label: 'Información',
           backgroundColor: Color(0xffC3ADDE),
-          tooltip: 'Information',
+          tooltip: 'Información psicológica',
         ),
         BottomNavigationBarItem(
           icon: Icon(
@@ -104,9 +104,9 @@ class AppBottomNavbar extends StatelessWidget {
           activeIcon: Icon(
             Icons.favorite,
           ),
-          label: 'My Space',
+          label: 'Mi Espacio',
           backgroundColor: Color(0xffDEADCC),
-          tooltip: 'My Space',
+          tooltip: 'Mi espacio',
         ),
       ],
     );

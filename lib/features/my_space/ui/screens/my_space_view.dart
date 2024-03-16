@@ -9,13 +9,13 @@ class MySpaceView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Space'),
+        title: const Text('Mi Espacio'),
       ),
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('My Space'),
+            Text('Mi Espacio'),
           ],
         ),
       ),

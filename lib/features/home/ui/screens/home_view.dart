@@ -12,7 +12,7 @@ class HomeView extends StatelessWidget {
     final sizeByCard = size.height / 3;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Inicio'),
       ),
       body: Center(
         child: SingleChildScrollView(

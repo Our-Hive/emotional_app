@@ -7,13 +7,13 @@ class InfoView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Information'),
+        title: const Text('Información'),
       ),
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Information'),
+            Text('Información'),
           ],
         ),
       ),
