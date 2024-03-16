@@ -37,6 +37,16 @@ class AppTheme {
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           selectedItemColor: Color(0xFF1A1C27),
         ),
+        tabBarTheme: const TabBarTheme(
+          unselectedLabelStyle: TextStyle(
+            fontWeight: FontWeight.normal,
+            fontSize: 13,
+          ),
+          labelStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 13,
+          ),
+        ),
         textTheme: const TextTheme(
           titleLarge: TextStyle(
             fontSize: 22,
