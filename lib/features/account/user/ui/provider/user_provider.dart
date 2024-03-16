@@ -1,0 +1,69 @@
+import 'package:emotional_app/features/account/auth/domain/entities/token.dart';
+import 'package:emotional_app/features/account/auth/ui/provider/auth_provider.dart';
+import 'package:emotional_app/features/account/user/domain/entities/user.dart';
+import 'package:emotional_app/features/account/user/domain/repository/user_repository.dart';
+import 'package:emotional_app/features/account/user/infrastructure/data_source/api_user_data_source_impl.dart';
+import 'package:emotional_app/features/account/user/infrastructure/repository/user_repository_impl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final userProvider = StateNotifierProvider<UserNotifier, UserState>(
+  (ref) => UserNotifier(
+    userRepository: UserRepositoryImpl(
+      ApiUserDataSourceImpl(),
+    ),
+    token: ref.watch(authProvider).token ?? Token(accessToken: ''),
+  ),
+);
+
+class UserNotifier extends StateNotifier<UserState> {
+  final UserRepository _userRepository;
+  final Token _token;
+  UserNotifier({required UserRepository userRepository, required Token token})
+      : _userRepository = userRepository,
+        _token = token,
+        super(
+          UserState(),
+        );
+
+  Future<void> getUser() async {
+    state = state.copyWith(status: UserStatus.loading);
+    try {
+      final user = await _userRepository.getUser(_token);
+      state = state.copyWith(
+        currentUser: user,
+        status: UserStatus.success,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        status: UserStatus.error,
+        errorMessage: e.toString(),
+      );
+    }
+  }
+}
+
+enum UserStatus { empty, editing, loading, error, success }
+
+class UserState {
+  final User? currentUser;
+  final UserStatus status;
+  final String errorMessage;
+
+  UserState({
+    this.currentUser,
+    this.status = UserStatus.empty,
+    this.errorMessage = '',
+  });
+
+  UserState copyWith({
+    User? currentUser,
+    UserStatus? status,
+    String? errorMessage,
+  }) {
+    return UserState(
+      currentUser: currentUser ?? this.currentUser,
+      status: status ?? this.status,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
+}

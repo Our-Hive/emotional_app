@@ -1,7 +1,7 @@
 import 'package:emotional_app/features/account/auth/domain/data_source/auth_local_data_source.dart';
 import 'package:emotional_app/features/account/auth/domain/entities/token.dart';
-import 'package:emotional_app/features/account/auth/infra/model/auth_hive_model.dart';
-import 'package:emotional_app/shared/infra/hive/hive_setup.dart';
+import 'package:emotional_app/features/account/auth/infrastructure/model/auth_hive_model.dart';
+import 'package:emotional_app/shared/infrastructure/hive/hive_setup.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
