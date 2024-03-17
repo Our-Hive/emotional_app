@@ -1,5 +1,5 @@
 import 'package:emotional_app/config/router/app_paths.dart';
-import 'package:emotional_app/features/account/auth/ui/widgets/password_form_field.dart';
+import 'package:emotional_app/shared/ui/password_form_field.dart';
 import 'package:emotional_app/features/account/user/domain/entities/user.dart';
 import 'package:emotional_app/features/account/user/ui/provider/disable_form_provider.dart';
 import 'package:emotional_app/features/account/user/ui/provider/user_provider.dart';
@@ -18,16 +18,31 @@ class ProfileView extends ConsumerStatefulWidget {
 class ProfileViewState extends ConsumerState<ProfileView> {
   @override
   void initState() {
-    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(userProvider.notifier).getUser();
     });
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final User user = ref.watch(userProvider).currentUser;
     final appColors = Theme.of(context).colorScheme;
+
+    ref.listen(userProvider, (previous, next) {
+      if (next.status == UserStatus.disabled) {
+        context.go(AppPaths.logIn);
+      }
+      if (next.status == UserStatus.error) {
+        context.pop();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(next.errorMessage),
+            backgroundColor: appColors.error,
+          ),
+        );
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text('Perfil'),
@@ -42,86 +57,84 @@ class ProfileViewState extends ConsumerState<ProfileView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const SizedBox(height: 5),
-                  ...[
-                    ImageFiltered(
-                      imageFilter: ColorFilter.mode(
-                        user.photoColor,
-                        BlendMode.srcATop,
-                      ),
-                      child: const Image(
-                        image: AssetImage('assets/app_image.png'),
-                        width: 120,
-                        height: 120,
-                      ),
+                  ImageFiltered(
+                    imageFilter: ColorFilter.mode(
+                      user.photoColor,
+                      BlendMode.srcATop,
                     ),
-                    const SizedBox(height: 15),
-                    Text(
-                      'Hola\r${user.firstName}\r${user.lastName}',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: const Image(
+                      image: AssetImage('assets/app_image.png'),
+                      width: 120,
+                      height: 120,
                     ),
-                    Text(
-                      user.email,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white60,
-                      ),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    'Hola\r${user.firstName}\r${user.lastName}',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(height: 10),
-                    _ActiveTextFormField(
-                      appColors: appColors,
-                      primaryText: 'Username',
-                      secondaryText: user.userName,
+                  ),
+                  Text(
+                    user.email,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white60,
                     ),
-                    const SizedBox(height: 15),
-                    _ActiveTextFormField(
-                      appColors: appColors,
-                      primaryText: 'Numero',
-                      secondaryText: '+57 3214562145',
+                  ),
+                  const SizedBox(height: 10),
+                  _ActiveTextFormField(
+                    appColors: appColors,
+                    primaryText: 'Username',
+                    secondaryText: user.userName,
+                  ),
+                  const SizedBox(height: 15),
+                  _ActiveTextFormField(
+                    appColors: appColors,
+                    primaryText: 'Numero',
+                    secondaryText: '+57 ${user.phoneNumber}',
+                  ),
+                  const SizedBox(height: 15),
+                  _ActiveTextFormField(
+                    appColors: appColors,
+                    primaryText: 'Fecha de Nacimiento',
+                    secondaryText: DateTimeFormatter.getFormattedDate(
+                      user.birthDate,
                     ),
-                    const SizedBox(height: 15),
-                    _ActiveTextFormField(
-                      appColors: appColors,
-                      primaryText: 'Fecha de Nacimiento',
-                      secondaryText: DateTimeFormatter.getFormattedDate(
-                        user.birthDate,
-                      ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: appColors.onSecondary),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    const SizedBox(height: 15),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: appColors.onSecondary),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: FilledButton.icon(
-                        onPressed: () => print('Pressed'),
-                        style: FilledButton.styleFrom(
-                          backgroundColor: appColors.secondary,
-                          foregroundColor: appColors.onSecondary,
-                        ),
-                        icon: const Icon(Icons.edit),
-                        label: const Text('Editar perfil'),
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    FilledButton.icon(
-                      onPressed: () => showDialog(
-                        context: context,
-                        builder: (context) => _DisableAccountDialog(
-                          appColors: appColors,
-                        ),
-                      ),
+                    child: FilledButton.icon(
+                      onPressed: () => print('Pressed'),
                       style: FilledButton.styleFrom(
-                        backgroundColor: appColors.error,
-                        foregroundColor: appColors.onError,
+                        backgroundColor: appColors.secondary,
+                        foregroundColor: appColors.onSecondary,
                       ),
-                      icon: const Icon(Icons.delete),
-                      label: const Text('Deshabilitar cuenta'),
+                      icon: const Icon(Icons.edit),
+                      label: const Text('Editar perfil'),
                     ),
-                  ],
+                  ),
+                  const SizedBox(height: 15),
+                  FilledButton.icon(
+                    onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => _DisableAccountDialog(
+                        appColors: appColors,
+                      ),
+                    ),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: appColors.error,
+                      foregroundColor: appColors.onError,
+                    ),
+                    icon: const Icon(Icons.delete),
+                    label: const Text('Deshabilitar cuenta'),
+                  ),
                 ],
               ),
             ),
@@ -156,7 +169,7 @@ class _DisableAccountDialog extends ConsumerWidget {
       actions: <Widget>[
         PasswordFormField(
           onChangedCallBack: (value) => ref
-              .read(disableFormProvider.notifier)
+              .watch(disableFormProvider.notifier)
               .onSecurityPasswordChanged(value.trim().toLowerCase()),
         ),
         const SizedBox(height: 10),
@@ -172,8 +185,9 @@ class _DisableAccountDialog extends ConsumerWidget {
                 final isValidated =
                     ref.read(disableFormProvider.notifier).onSummit();
                 if (isValidated) {
-                  ref.read(userProvider.notifier).disableUser();
-                  context.go(AppPaths.logIn);
+                  ref.read(userProvider.notifier).disableUser(
+                        ref.read(disableFormProvider).securityPassword,
+                      );
                 }
               },
               style: TextButton.styleFrom(

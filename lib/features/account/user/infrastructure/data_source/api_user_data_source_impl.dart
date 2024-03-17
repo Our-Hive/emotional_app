@@ -29,9 +29,26 @@ class ApiUserDataSourceImpl implements UserDataSource {
   }
 
   @override
-  Future<User> deleteUser(String password) {
-    // TODO: implement deleteUser
-    throw UnimplementedError();
+  Future<bool> disableUser(Token token, String password) async {
+    try {
+      final response = await _dio.delete(
+        '/users',
+        data: {
+          'password': password,
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${token.accessToken}',
+          },
+        ),
+      );
+      if (response.statusCode != 204) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   @override
