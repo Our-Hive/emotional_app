@@ -1,8 +1,12 @@
+import 'package:emotional_app/config/router/app_paths.dart';
+import 'package:emotional_app/features/account/auth/ui/widgets/password_form_field.dart';
 import 'package:emotional_app/features/account/user/domain/entities/user.dart';
+import 'package:emotional_app/features/account/user/ui/provider/disable_form_provider.dart';
 import 'package:emotional_app/features/account/user/ui/provider/user_provider.dart';
 import 'package:emotional_app/shared/domain/utils/date_time_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key});
@@ -104,7 +108,12 @@ class ProfileViewState extends ConsumerState<ProfileView> {
                     ),
                     const SizedBox(height: 15),
                     FilledButton.icon(
-                      onPressed: () => print('Pressed'),
+                      onPressed: () => showDialog(
+                        context: context,
+                        builder: (context) => _DisableAccountDialog(
+                          appColors: appColors,
+                        ),
+                      ),
                       style: FilledButton.styleFrom(
                         backgroundColor: appColors.error,
                         foregroundColor: appColors.onError,
@@ -119,6 +128,63 @@ class ProfileViewState extends ConsumerState<ProfileView> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _DisableAccountDialog extends ConsumerWidget {
+  final ColorScheme appColors;
+  const _DisableAccountDialog({
+    required this.appColors,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return AlertDialog(
+      icon: Icon(
+        Icons.warning,
+        color: appColors.error,
+        size: 50,
+      ),
+      title: const Text(
+        'Esta seguro de deshabilitar la cuenta?',
+        textAlign: TextAlign.center,
+      ),
+      content: const Text(
+        'Para deshabilitar su cuenta ingrese su contraseña.',
+      ),
+      actions: <Widget>[
+        PasswordFormField(
+          onChangedCallBack: (value) => ref
+              .read(disableFormProvider.notifier)
+              .onSecurityPasswordChanged(value.trim().toLowerCase()),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              onPressed: () => context.pop(),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                final isValidated =
+                    ref.read(disableFormProvider.notifier).onSummit();
+                if (isValidated) {
+                  ref.read(userProvider.notifier).disableUser();
+                  context.go(AppPaths.logIn);
+                }
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: appColors.error,
+                foregroundColor: appColors.onError,
+              ),
+              child: const Text('Deshabilitar'),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

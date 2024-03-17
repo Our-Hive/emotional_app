@@ -42,6 +42,21 @@ class UserNotifier extends StateNotifier<UserState> {
       );
     }
   }
+
+  Future<void> disableUser() async {
+    state = state.copyWith(status: UserStatus.loading);
+    try {
+      await _userRepository.disableUser(_token);
+      state = state.copyWith(
+        status: UserStatus.success,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        status: UserStatus.error,
+        errorMessage: e.toString(),
+      );
+    }
+  }
 }
 
 enum UserStatus { empty, editing, loading, error, success }
