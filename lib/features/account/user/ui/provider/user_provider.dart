@@ -8,9 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final userProvider = StateNotifierProvider<UserNotifier, UserState>(
   (ref) => UserNotifier(
-    userRepository: UserRepositoryImpl(
-      ApiUserDataSourceImpl(),
-    ),
+    userRepository: UserRepositoryImpl(ApiUserDataSourceImpl()),
     token: ref.watch(authProvider).token ?? Token(accessToken: ''),
   ),
 );
@@ -18,11 +16,15 @@ final userProvider = StateNotifierProvider<UserNotifier, UserState>(
 class UserNotifier extends StateNotifier<UserState> {
   final UserRepository _userRepository;
   final Token _token;
-  UserNotifier({required UserRepository userRepository, required Token token})
-      : _userRepository = userRepository,
+  UserNotifier({
+    required UserRepository userRepository,
+    required Token token,
+  })  : _userRepository = userRepository,
         _token = token,
         super(
-          UserState(),
+          UserState(
+            currentUser: User.empty(),
+          ),
         );
 
   Future<void> getUser() async {
@@ -40,17 +42,30 @@ class UserNotifier extends StateNotifier<UserState> {
       );
     }
   }
+
+  Future<void> disableUser(String password) async {
+    state = state.copyWith(status: UserStatus.loading);
+    final bool isDeleted = await _userRepository.disableUser(_token, password);
+    if (isDeleted) {
+      state = state.copyWith(status: UserStatus.disabled);
+      return;
+    }
+    state = state.copyWith(
+      status: UserStatus.error,
+      errorMessage: 'el usuario no fue eliminado',
+    );
+  }
 }
 
-enum UserStatus { empty, editing, loading, error, success }
+enum UserStatus { empty, editing, loading, error, success, disabled }
 
 class UserState {
-  final User? currentUser;
+  final User currentUser;
   final UserStatus status;
   final String errorMessage;
 
   UserState({
-    this.currentUser,
+    required this.currentUser,
     this.status = UserStatus.empty,
     this.errorMessage = '',
   });

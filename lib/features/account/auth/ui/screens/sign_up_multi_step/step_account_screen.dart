@@ -1,6 +1,6 @@
 import 'package:emotional_app/config/router/app_paths.dart';
 import 'package:emotional_app/features/account/auth/ui/provider/signup_form_provider.dart';
-import 'package:emotional_app/features/account/auth/ui/widgets/password_form_field.dart';
+import 'package:emotional_app/shared/ui/password_form_field.dart';
 import 'package:emotional_app/features/account/auth/ui/widgets/to_login_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

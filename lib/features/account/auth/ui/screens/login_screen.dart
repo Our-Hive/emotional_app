@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:emotional_app/config/router/app_paths.dart';
 import 'package:emotional_app/features/account/auth/ui/provider/auth_provider.dart';
 import 'package:emotional_app/features/account/auth/ui/provider/login_form_provider.dart';
-import 'package:emotional_app/features/account/auth/ui/widgets/password_form_field.dart';
+import 'package:emotional_app/shared/ui/password_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';

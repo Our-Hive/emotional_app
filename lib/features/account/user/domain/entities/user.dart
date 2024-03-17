@@ -18,4 +18,14 @@ class User {
     required this.birthDate,
     this.photoColor = Colors.yellow,
   });
+  factory User.empty() {
+    return User(
+      firstName: '',
+      lastName: '',
+      email: '',
+      userName: '',
+      phoneNumber: '',
+      birthDate: DateTime.now(),
+    );
+  }
 }

@@ -8,12 +8,6 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl(this._userDataSource);
 
   @override
-  Future<User> deleteUser(String password) {
-    // TODO: implement deleteUser
-    throw UnimplementedError();
-  }
-
-  @override
   Future<User> getUser(Token token) {
     return _userDataSource.getUser(token);
   }
@@ -22,5 +16,10 @@ class UserRepositoryImpl implements UserRepository {
   Future<User> updateUser(User user) {
     // TODO: implement updateUser
     throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> disableUser(Token token, String password) {
+    return _userDataSource.disableUser(token, password);
   }
 }

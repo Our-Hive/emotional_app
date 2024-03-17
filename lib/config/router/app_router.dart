@@ -10,7 +10,7 @@ import 'package:emotional_app/features/my_space/ui/screens/my_space_view.dart';
 import 'package:emotional_app/config/router/app_paths.dart';
 import 'package:go_router/go_router.dart';
 
-final appRouter = GoRouter(initialLocation: AppPaths.history, routes: [
+final appRouter = GoRouter(initialLocation: AppPaths.logIn, routes: [
   GoRoute(
     path: AppPaths.logIn,
     builder: (context, state) => const LoginScreen(),
