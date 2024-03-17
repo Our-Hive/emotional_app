@@ -22,7 +22,9 @@ class UserNotifier extends StateNotifier<UserState> {
       : _userRepository = userRepository,
         _token = token,
         super(
-          UserState(),
+          UserState(
+            currentUser: User.empty(),
+          ),
         );
 
   Future<void> getUser() async {
@@ -45,12 +47,12 @@ class UserNotifier extends StateNotifier<UserState> {
 enum UserStatus { empty, editing, loading, error, success }
 
 class UserState {
-  final User? currentUser;
+  final User currentUser;
   final UserStatus status;
   final String errorMessage;
 
   UserState({
-    this.currentUser,
+    required this.currentUser,
     this.status = UserStatus.empty,
     this.errorMessage = '',
   });

@@ -22,7 +22,7 @@ class ProfileViewState extends ConsumerState<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    User? user = ref.watch(userProvider).currentUser;
+    final User user = ref.watch(userProvider).currentUser;
     final appColors = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
@@ -38,79 +38,81 @@ class ProfileViewState extends ConsumerState<ProfileView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const SizedBox(height: 5),
-                  ImageFiltered(
-                    imageFilter: ColorFilter.mode(
-                      user!.photoColor,
-                      BlendMode.srcATop,
+                  ...[
+                    ImageFiltered(
+                      imageFilter: ColorFilter.mode(
+                        user.photoColor,
+                        BlendMode.srcATop,
+                      ),
+                      child: const Image(
+                        image: AssetImage('assets/app_image.png'),
+                        width: 120,
+                        height: 120,
+                      ),
                     ),
-                    child: const Image(
-                      image: AssetImage('assets/app_image.png'),
-                      width: 120,
-                      height: 120,
+                    const SizedBox(height: 15),
+                    Text(
+                      'Hola\r${user.firstName}\r${user.lastName}',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  Text(
-                    'Hola\r${user.firstName}\r${user.lastName}',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      user.email,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white60,
+                      ),
                     ),
-                  ),
-                  Text(
-                    user.email,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white60,
+                    const SizedBox(height: 10),
+                    _ActiveTextFormField(
+                      appColors: appColors,
+                      primaryText: 'Username',
+                      secondaryText: user.userName,
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  _ActiveTextFormField(
-                    appColors: appColors,
-                    primaryText: 'Username',
-                    secondaryText: user.userName,
-                  ),
-                  const SizedBox(height: 15),
-                  _ActiveTextFormField(
-                    appColors: appColors,
-                    primaryText: 'Numero',
-                    secondaryText: '+57 3214562145',
-                  ),
-                  const SizedBox(height: 15),
-                  _ActiveTextFormField(
-                    appColors: appColors,
-                    primaryText: 'Fecha de Nacimiento',
-                    secondaryText: DateTimeFormatter.getFormattedDate(
-                      user.birthDate,
+                    const SizedBox(height: 15),
+                    _ActiveTextFormField(
+                      appColors: appColors,
+                      primaryText: 'Numero',
+                      secondaryText: '+57 3214562145',
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: appColors.onSecondary),
-                      borderRadius: BorderRadius.circular(10),
+                    const SizedBox(height: 15),
+                    _ActiveTextFormField(
+                      appColors: appColors,
+                      primaryText: 'Fecha de Nacimiento',
+                      secondaryText: DateTimeFormatter.getFormattedDate(
+                        user.birthDate,
+                      ),
                     ),
-                    child: FilledButton.icon(
+                    const SizedBox(height: 15),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: appColors.onSecondary),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: FilledButton.icon(
+                        onPressed: () => print('Pressed'),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: appColors.secondary,
+                          foregroundColor: appColors.onSecondary,
+                        ),
+                        icon: const Icon(Icons.edit),
+                        label: const Text('Editar perfil'),
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    FilledButton.icon(
                       onPressed: () => print('Pressed'),
                       style: FilledButton.styleFrom(
-                        backgroundColor: appColors.secondary,
-                        foregroundColor: appColors.onSecondary,
+                        backgroundColor: appColors.error,
+                        foregroundColor: appColors.onError,
                       ),
-                      icon: const Icon(Icons.edit),
-                      label: const Text('Editar perfil'),
+                      icon: const Icon(Icons.delete),
+                      label: const Text('Deshabilitar cuenta'),
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  FilledButton.icon(
-                    onPressed: () => print('Pressed'),
-                    style: FilledButton.styleFrom(
-                      backgroundColor: appColors.error,
-                      foregroundColor: appColors.onError,
-                    ),
-                    icon: const Icon(Icons.delete),
-                    label: const Text('Deshabilitar cuenta'),
-                  ),
+                  ],
                 ],
               ),
             ),
