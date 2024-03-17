@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 class PasswordFormField extends StatefulWidget {
   final String label;
   final void Function(String) onChangedCallBack;
-  const PasswordFormField(
-      {super.key, this.label = 'Contraseña', required this.onChangedCallBack});
+  const PasswordFormField({
+    super.key,
+    this.label = 'Contraseña',
+    required this.onChangedCallBack,
+  });
 
   @override
   State<PasswordFormField> createState() => _PasswordFormFieldState();
